@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDoliste</title>
+    <style>
+:root {
+  --primary-color: #5e35b1;
+  --primary-light: #9162e4;
+  --primary-dark: #280680;
+  --secondary-color: #26c6da;
+  --background: #f5f5f5;
+  --surface: #fcf7f7;
+  --error: #d32f2f;
+  --text-primary: #212121;
+  --text-secondary: #757575;
+  --divider: #e0e0e0;
+
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: #26c6da;
+}
+
+#normalSection, #dailySection {
+  background-color: var(--surface);
+  width: 100%;
+  max-width: 500px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+h1, h2 {
+  color: var(--primary-color);
+  margin-bottom: 24px;
+  text-align: center;
+  font-weight: 600;
+}
+
+h1 {
+  font-size: 28px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--divider);
+  border-radius: 8px;
+  font-size: 16px;
+  margin-bottom: 16px;
+  transition: border 0.3s;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  background-color: var(--primary-light);
+}
+
+
+button:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+#normalSection > button:first-of-type {
+  background-color: var(--primary-color);
+}
+
+#normalSection > button:last-of-type,
+#dailySection > button {
+  background-color: var(--secondary-color);
+}
+
+ul {
+  list-style-type: none;
+  margin-top: 20px;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--divider);
+  transition: all 0.3s;
+}
+
+li:last-child {
+  border-bottom: none;
+}
+
+li span {
+  flex-grow: 1;
+  margin-right: 12px;
+  word-break: break-word;
+}
+
+li.done span {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}
+
+li button {
+  margin: 0 0 0 8px;
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+li button:last-child {
+  margin-right: 0;
+}
+
+li input[type="text"] {
+  flex-grow: 1;
+  margin: 0 8px 0 0;
+  padding: 8px;
+}
+
+.done-btn {
+  background-color: var(--secondary-color) !important;
+}
+
+
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+  
+  #normalSection, #dailySection {
+    padding: 16px;
+  }
+  
+  li {
+    flex-wrap: wrap;
+  }
+  
+  li span {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+  
+  li button {
+    margin: 4px;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+li {
+  animation: fadeIn 0.3s ease-out;
+}
+      </style>
+    </head>
+   
+</head>
+<body>
+   <div id="normalSection">
+  <h1>ToDoListe</h1>
+  <input type="text" id="aufgabenfeld" placeholder="Neue Aufgabe hinzufügen">
+  <button onclick="Addtask()">Hinzufügen</button>
+  <button onclick="zeigeDaily()">Tägliche Aufgaben</button>
+  <ul id="listeTodo"></ul>
+  <p id="taskCounter">Offene Aufgaben: 0 | Erledigte Aufgaben: 0</p>
+</div>
+
+
+<div id="dailySection" style="display: none;">
+  <h2>Tägliche Aufgaben</h2>
+  <button onclick="zeigeNormal()">Zurück</button>
+  <ul id="dailyTodo">
+    <li><span>Zähne putzen</span></li>
+    <li><span>10 Minuten Bewegung</span></li>
+    <li><span>Lesen</span></li>
+    <li><span>Schreibtisch aufräumen</span></li>
+    <li><span>Überprüfe E-Mails</span></li>
+    <li><span>3 Liter Wasser trinken</span></li>
+     <li><span>Plane deinen Tag</span></li>
+    
+  </ul>
+</div>
+
+
+<script src="script.js"></script>
+</body>
+</html>
